@@ -1,2 +1,8 @@
-cocotb==1.7.2
+cocotb==1.5.0
+cocotb-bus==0.1.1
+cocotb-coverage==1.1.0
 find-libpython==0.3.0
+python-constraint==1.4.0
+PyYAML==6.0
+regex==2022.10.31
+git+https://github.com/tpoikela/uvm-python.git@1b8768a
