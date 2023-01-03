@@ -6,6 +6,8 @@ from cocotb_bus.monitors.avalon import AvalonSTPkts as AvalonSTMonitor
 
 from cocotb_bus.scoreboard import Scoreboard
 
+from cocotb.triggers import Timer, RisingEdge
+
 class EndianSwapperTB(object):
 
     def __init__(self, dut):
@@ -27,3 +29,12 @@ class EndianSwapperTB(object):
         """Model the DUT based on the input transaction"""
         self.expected_out.append(transaction)
         self.pkts_sent += 1
+    
+    async def reset(self, duration=20):
+        self.dut._log.debug("Resetting DUT")
+        self.dut.reset_n <= 0
+        self.stream_in.bus.valid <= 0
+        await Timer(duration, units='ns')
+        await RisingEdge(self.dut.clk)
+        self.dut.reset_n <= 1
+        self.dut._log.denug("Out of reset")
