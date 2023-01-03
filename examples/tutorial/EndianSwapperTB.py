@@ -1,3 +1,4 @@
+from cocotb_bus.drivers import BitDriver
 from cocotb_bus.drivers.avalon import AvalonSTPkts as AvalonSTDriver
 from cocotb_bus.drivers.avalon import AvalonMaster
 
@@ -10,6 +11,7 @@ class EndianSwapperTB(object):
     def __init__(self, dut):
         self.dut = dut
         self.stream_in = AvalonSTDriver(dut, "stream_in", dut.clk)
+        self.backpressure = BitDriver(self.dut.stream_out_ready, self.dut.clk)
         self.stream_out = AvalonSTMonitor(dut, "stream_out", dut.clk)
         self.csr = AvalonMaster(dut, "csr", dut.clk)
 
