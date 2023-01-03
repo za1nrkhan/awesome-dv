@@ -18,4 +18,10 @@ class EndianSwapperTB(object):
         self.scoreboard = Scoreboard(dut)
         self.scoreboard.add_interface(self.stream_out, self.expected_out)
 
+        # Reconstruct the input transactions from the pins and send them to our 'model'
         self.stream_in_recovered = AvalonSTMonitor(dut, "stream_in", dut.clk, callback=self.model)
+
+    def model(self, transaction):
+        """Model the DUT based on the input transaction"""
+        self.expected_out.append(transaction)
+        self.pkts_sent += 1
