@@ -160,6 +160,7 @@ cython_debug/
 #.idea/
 
 sim_build/
+results.xml
 
 # Prerequisites
 *.d

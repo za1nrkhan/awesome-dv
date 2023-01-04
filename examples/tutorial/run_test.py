@@ -4,15 +4,14 @@ from cocotb.clock import Clock
 
 from EndianSwapperTB import *
 
-@cocotb.coroutine
-def run_test(dut, data_in=None, config_coroutine=None, 
+async def run_test(dut, data_in=None, config_coroutine=None, 
                 idle_inserter=None, 
                 backpressure_inserter=None):
 
-    cocotb.fork(Clock(dut.clk, 5000).start())
+    cocotb.fork(Clock(dut.clk, 10, units='ns').start())
     tb = EndianSwapperTB(dut)
 
-    yield tb.reset()
+    await tb.reset()
     dut.stream_out_ready <= 1
 
     # Start off any optional coroutines
@@ -25,17 +24,17 @@ def run_test(dut, data_in=None, config_coroutine=None,
 
     # Send in the packets
     for transaction in data_in():
-        yield tb.stream_in.send(transaction)
+        await tb.stream_in.send(transaction)
 
     # Wait at least 2 cycles where output ready is low before ending the test
     for i in range(2):
-        yield RisingEdge(dut.clk)
+        await RisingEdge(dut.clk)
         while not dut.stream_out_ready.value:
-            yield RisingEdge(dut.clk)
+            await RisingEdge(dut.clk)
 
-    pkt_count = yield tb.csr.read(1)
+    pkt_count = await tb.csr.read(1)
 
-    assert pkt_count.integer != tb.pkts_sent, "DUT recored %d packets but tb counted %d" % (pkt_count.integer, tb.pkts_sent)
-    dut._log.info("DUT correctly counted %d packages" % pkt_count.integer)
+    assert pkt_count.integer == tb.pkts_sent, "DUT recorded %d packets but tb counted %d" % (pkt_count.integer, tb.pkts_sent)
+    dut._log.info("DUT correctly counted %d packets" % pkt_count.integer)
 
     raise tb.scoreboard.result
