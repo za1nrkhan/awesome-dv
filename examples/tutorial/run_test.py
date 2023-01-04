@@ -34,3 +34,8 @@ def run_test(dut, data_in=None, config_coroutine=None,
             yield RisingEdge(dut.clk)
 
     pkt_count = yield tb.csr.read(1)
+
+    assert pkt_count.integer != tb.pkts_sent, "DUT recored %d packets but tb counted %d" % (pkt_count.integer, tb.pkts_sent)
+    dut._log.info("DUT correctly counted %d packages" % pkt_count.integer)
+
+    raise tb.scoreboard.result
