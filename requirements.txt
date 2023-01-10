@@ -12,5 +12,6 @@ pytest==7.2.0
 python-constraint==1.4.0
 PyYAML==6.0
 regex==2022.10.31
+swig==4.1.1
 tomli==2.0.1
 git+https://github.com/tpoikela/uvm-python.git@1b8768a
