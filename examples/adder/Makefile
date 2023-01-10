@@ -15,4 +15,8 @@ endif
 TOPLEVEL := adder
 MODULE   := test_adder
 
+ifeq ($(SIM),verilator)
+    EXTRA_ARGS += --trace-fst --trace-structs
+endif
+
 include $(shell cocotb-config --makefiles)/Makefile.sim

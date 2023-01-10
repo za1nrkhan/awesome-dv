@@ -20,6 +20,10 @@ COCOTB_HDL_TIMEPRECISION=1us
 
 CUSTOM_SIM_DEPS=$(CWD)/Makefile
 
+ifeq ($(SIM),verilator)
+    EXTRA_ARGS += --trace-fst --trace-structs
+endif
+
 ifeq ($(SIM),questa)
     SIM_ARGS=-t 1ps
 endif

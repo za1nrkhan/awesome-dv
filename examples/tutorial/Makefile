@@ -13,6 +13,10 @@ TOPLEVEL = endian_swapper_sv
 
 MODULE := tb_top
 
+ifeq ($(SIM),verilator)
+    EXTRA_ARGS += --trace-fst --trace-structs
+endif
+
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
 # Stuff below is useful for profiling
