@@ -1,3 +1,4 @@
 verilog/axi_lite_slave/* linguist-vendored
+verilog/nucleusrv/sram.v -linguist-vendored
 
 verilog/nucleusrv/Top.v linguist-generated
