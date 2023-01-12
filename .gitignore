@@ -170,3 +170,8 @@ results.xml
 
 # Compiled Static libraries
 *.a
+
+# Waveform dumps
+*.fst
+*.vcd
+
