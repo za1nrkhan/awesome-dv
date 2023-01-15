@@ -60,7 +60,7 @@ module Core_top (
         .io_req_bits_addrRequest    ( data_addr  ),
         .io_req_bits_dataRequest    ( data_wdata ),
         .io_req_bits_activeByteLane ( data_be    ),
-        .io_req_bits_isWrite        ( data_we    ).
+        .io_req_bits_isWrite        ( data_we    ),
         .io_rsp_valid               ( data_valid ),
         .io_rsp_bits_dataResponse   ( data_rdata )
     );
