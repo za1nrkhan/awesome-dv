@@ -13,6 +13,10 @@ else
 COMPILE_ARGS+=+incdir+$(CWD)/../verilog/nucleusrv
 endif
 
+ifeq ($(SIM),verilator)
+COMPILE_ARGS+=--no-timing
+endif
+
 #DUT
 VERILOG_SOURCES = $(CWD)/../verilog/nucleusrv/sram_top.v
 VERILOG_SOURCES += $(CWD)/../verilog/nucleusrv/sram.v
