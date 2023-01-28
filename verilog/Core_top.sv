@@ -17,6 +17,21 @@ module Core_top (
     logic        instr_valid;
     logic [31:0] instr_rdata; 
 
+    logic [31:0] pc_rdata;
+    logic [31:0] pc_wdata;
+    logic [31:0] insn;
+    logic [31:0] mem_addr;
+    logic [1:0]  mode;
+    logic [4:0]  rs1_addr;
+    logic [4:0]  rs2_addr;
+    logic [4:0]  rd_addr;
+    logic [31:0] rd_wdata;
+    logic [31:0] rs1_rdata;
+    logic [31:0] rs2_rdata;
+    logic [31:0] mem_rdata;
+    logic [31:0] mem_wdata;
+    logic        valid; 
+
     Core u_nucleusrv_core (
         // Clock and reset
         .clock  ( clock  ),
@@ -36,19 +51,20 @@ module Core_top (
         .io_imemRsp_valid             ( instr_valid ),
         .io_imemRsp_bits_dataResponse ( instr_rdata ),
         // RVFI
-        .io_rvfiUInt_0    (  ),
-        .io_rvfiUInt_1    (  ),
-        .io_rvfiUInt_2    (  ),
-        .io_rvfiUInt_3    (  ),
-        .io_rvfiSInt_0    (  ),
-        .io_rvfiSInt_1    (  ),
-        .io_rvfiSInt_2    (  ),
-        .io_rvfiSInt_3    (  ),
-        .io_rvfiSInt_4    (  ),
-        .io_rvfiBool_0    (  ),
-        .io_rvfiRegAddr_0 (  ),
-        .io_rvfiRegAddr_1 (  ),
-        .io_rvfiRegAddr_2 (  )
+        .io_rvfiUInt_0    ( pc_rdata ),
+        .io_rvfiUInt_1    ( pc_wdata ),
+        .io_rvfiUInt_2    ( insn ),
+        .io_rvfiUInt_3    ( mem_addr ),
+        .io_rvfiSInt_0    ( rd_wdata ),
+        .io_rvfiSInt_1    ( rs1_rdata ),
+        .io_rvfiSInt_2    ( rs2_rdata ),
+        .io_rvfiSInt_3    ( mem_rdata ),
+        .io_rvfiSInt_4    ( mem_wdata ),
+        .io_rvfiBool_0    ( valid ),
+        .io_rvfiRegAddr_0 ( rd_addr ),
+        .io_rvfiRegAddr_1 ( rs1_addr ),
+        .io_rvfiRegAddr_2 ( rs2_addr ),
+        .io_rvfiMode      ( mode )
     );
 
     SRamTop dmem (
