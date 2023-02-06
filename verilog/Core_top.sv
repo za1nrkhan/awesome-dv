@@ -1,7 +1,26 @@
 module Core_top (
     input               clock,
     input               reset,
-    output logic [31:0] io_pin
+    output logic [31:0] io_pin,
+
+    output logic [31:0] pc_rdata,
+    output logic [31:0] pc_wdata,
+    output logic [31:0] insn,
+    output logic [31:0] mem_addr,
+
+    output logic [31:0] rd_wdata,
+    output logic [31:0] rs1_rdata,
+    output logic [31:0] rs2_rdata,
+    output logic [31:0] mem_rdata,
+    output logic [31:0] mem_wdata,
+
+    output logic        valid,
+
+    output logic [4:0]  rd_addr,
+    output logic [4:0]  rs1_addr,
+    output logic [4:0]  rs2_addr,
+    
+    output logic [1:0]  mode
 );
 
     logic        data_req;
@@ -16,21 +35,6 @@ module Core_top (
     logic [31:0] instr_addr;
     logic        instr_valid;
     logic [31:0] instr_rdata; 
-
-    logic [31:0] pc_rdata;
-    logic [31:0] pc_wdata;
-    logic [31:0] insn;
-    logic [31:0] mem_addr;
-    logic [1:0]  mode;
-    logic [4:0]  rs1_addr;
-    logic [4:0]  rs2_addr;
-    logic [4:0]  rd_addr;
-    logic [31:0] rd_wdata;
-    logic [31:0] rs1_rdata;
-    logic [31:0] rs2_rdata;
-    logic [31:0] mem_rdata;
-    logic [31:0] mem_wdata;
-    logic        valid; 
 
     Core u_nucleusrv_core (
         // Clock and reset
