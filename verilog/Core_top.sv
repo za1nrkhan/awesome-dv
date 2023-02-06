@@ -51,19 +51,24 @@ module Core_top (
         .io_imemRsp_valid             ( instr_valid ),
         .io_imemRsp_bits_dataResponse ( instr_rdata ),
         // RVFI
+        // Program counter, data memory addresses and instructions read from memory
         .io_rvfiUInt_0    ( pc_rdata ),
         .io_rvfiUInt_1    ( pc_wdata ),
         .io_rvfiUInt_2    ( insn ),
         .io_rvfiUInt_3    ( mem_addr ),
+        // Register file and data memory interface read and write ports
         .io_rvfiSInt_0    ( rd_wdata ),
         .io_rvfiSInt_1    ( rs1_rdata ),
         .io_rvfiSInt_2    ( rs2_rdata ),
         .io_rvfiSInt_3    ( mem_rdata ),
         .io_rvfiSInt_4    ( mem_wdata ),
+        // RVFI valid port
         .io_rvfiBool_0    ( valid ),
+        // Register file addresses
         .io_rvfiRegAddr_0 ( rd_addr ),
         .io_rvfiRegAddr_1 ( rs1_addr ),
         .io_rvfiRegAddr_2 ( rs2_addr ),
+        // RVFI mode
         .io_rvfiMode      ( mode )
     );
 
